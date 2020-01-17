@@ -1,4 +1,4 @@
-package Ignite_8.FromIgniteDocs.Clustering_8.ClusterAPI;
+package Ignite_8.FromIgniteDocs.Clustering_8.ClusterAPI_1;
 
 import io.reactivex.functions.Consumer;
 import io.vertx.core.VertxOptions;

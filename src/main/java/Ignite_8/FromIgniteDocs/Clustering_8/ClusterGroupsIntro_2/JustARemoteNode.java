@@ -1,4 +1,4 @@
-package Ignite_8.FromIgniteDocs.Clustering_8.ClusterGroups;
+package Ignite_8.FromIgniteDocs.Clustering_8.ClusterGroupsIntro_2;
 
 import io.reactivex.functions.Consumer;
 import io.vertx.core.VertxOptions;
@@ -8,11 +8,11 @@ import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.core.Vertx;
 import io.vertx.spi.cluster.ignite.IgniteClusterManager;
 import org.apache.ignite.*;
-import org.apache.ignite.cache.CacheAtomicityMode;
-import org.apache.ignite.cache.CacheMode;
-import org.apache.ignite.configuration.CacheConfiguration;
+import org.apache.ignite.configuration.IgniteConfiguration;
 
-public class JustACacheNode extends AbstractVerticle {
+public class JustARemoteNode extends AbstractVerticle {
+
+    static IgniteConfiguration igniteConfiguration = new IgniteConfiguration();
 
     public static void main(String[] args) {
         vertSetup();
@@ -20,20 +20,13 @@ public class JustACacheNode extends AbstractVerticle {
 
     @Override
     public void start() {
-        try (Ignite ignite = Ignition.start()) {
 
-            CacheConfiguration<String, String> cacheConfiguration = new CacheConfiguration<>();
-            cacheConfiguration.setCacheMode(CacheMode.PARTITIONED);
-            cacheConfiguration.setName("just-a-cache");
-            cacheConfiguration.setAtomicityMode(CacheAtomicityMode.ATOMIC);
+        try (Ignite ignite = Ignition.start(igniteConfiguration)) {
 
             // All Nodes
-            try (IgniteCache<String, String> igniteCache = ignite.getOrCreateCache(cacheConfiguration)) {
-                System.out.println("I'm just a cache node");
-                Thread.sleep(10000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            try {
+                System.out.println("I'm just a remote node");
+            } catch (IgniteException ignore) {}
         }
     }
 
@@ -47,7 +40,7 @@ public class JustACacheNode extends AbstractVerticle {
 
         Consumer<Vertx> runner = consumerVertx -> {
             try {
-                consumerVertx.deployVerticle(JustACacheNode.class.getName());
+                consumerVertx.deployVerticle(JustARemoteNode.class.getName());
             } catch (Throwable throwable) {
                 throwable.printStackTrace();
             }

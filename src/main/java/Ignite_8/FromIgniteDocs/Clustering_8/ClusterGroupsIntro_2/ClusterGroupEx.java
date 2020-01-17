@@ -1,4 +1,4 @@
-package Ignite_8.FromIgniteDocs.Clustering_8.ClusterGroups;
+package Ignite_8.FromIgniteDocs.Clustering_8.ClusterGroupsIntro_2;
 
 import io.reactivex.functions.Consumer;
 import io.vertx.core.VertxOptions;
@@ -39,40 +39,40 @@ public class ClusterGroupEx extends AbstractVerticle {
 
                // Local Nodes
                 IgniteCompute compute = ignite.compute(igniteCluster);
-                compute.broadcastAsync(() -> System.out.println("Local Node: " + igniteCluster.localNode().id()));
+                compute.broadcast(() -> System.out.println("Local Node: " + igniteCluster.localNode().id()));
 
                 // Remote Nodes
                 compute = ignite.compute(igniteCluster.forRemotes());
-                compute.broadcastAsync(() -> System.out.println("Remote Node: " + igniteCluster.localNode().id()));
+                compute.broadcast(() -> System.out.println("Remote Node: " + igniteCluster.localNode().id()));
 
                 // Cache Nodes
                 compute = ignite.compute(igniteCluster.forCacheNodes("just-a-cache"));
-                compute.broadcastAsync(() -> System.out.println("Cache Node: " + igniteCluster.localNode().id()));
+                compute.broadcast(() -> System.out.println("Cache Node: " + igniteCluster.localNode().id()));
 
                 // Data Nodes ... same as Cache Nodes??
                 compute = ignite.compute(igniteCluster.forDataNodes("just-a-cache"));
-                compute.broadcastAsync(() -> System.out.println("Data Node: " + igniteCluster.localNode().id()));
+                compute.broadcast(() -> System.out.println("Data Node: " + igniteCluster.localNode().id()));
 
                 // Nodes w/ attributes
                 compute = ignite.compute(igniteCluster.forAttribute("userAttribute", "attributeName"));
-                compute.broadcastAsync(() -> System.out.println("Attr Node: " + igniteCluster.localNode().id()));
+                compute.broadcast(() -> System.out.println("Attr Node: " + igniteCluster.localNode().id()));
 
                 // Get a randomm node
                 ClusterGroup random = igniteCluster.forRandom();
                 compute = ignite.compute(random);
-                compute.broadcastAsync(() -> System.out.println("Random Node: " + igniteCluster.localNode().id()));
+                compute.broadcast(() -> System.out.println("Random Node: " + igniteCluster.localNode().id()));
 
                 // Get everything ono the same host as a randomly selected nodoe
                 compute = ignite.compute(igniteCluster.forHost((ClusterNode) random));
-                compute.broadcastAsync(() -> System.out.println("My Host Node: " + igniteCluster.localNode().id()));
+                compute.broadcast(() -> System.out.println("My Host Node: " + igniteCluster.localNode().id()));
 
                 // Oldest node
                 compute = ignite.compute(igniteCluster.forOldest());
-                compute.broadcastAsync(() -> System.out.println("Oldest Node: " + igniteCluster.localNode().id()));
+                compute.broadcast(() -> System.out.println("Oldest Node: " + igniteCluster.localNode().id()));
 
                 // Custom  node
                 compute = ignite.compute(igniteCluster.forPredicate((node) ->  node.metrics().getCurrentCpuLoad() > 0.0));
-                compute.broadcastAsync(() -> System.out.println("CustomNode: " + igniteCluster.localNode().id()));
+                compute.broadcast(() -> System.out.println("CustomNode: " + igniteCluster.localNode().id()));
 
 
             } catch (IgniteException ignore) { }
