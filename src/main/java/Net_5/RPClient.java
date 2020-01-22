@@ -29,7 +29,7 @@ public class RPClient extends AbstractVerticle {
 
                         Stream.of("Data", "Persistence", "Rocks").forEach(name -> {
                             System.out.println("RP Client SEND: " + name);
-                            socket.write(name).write("\n");
+//                            socket.write(name).write("\n");
                         });
                     } else {
                         System.out.println("Failed to connect " + netSocketAsyncResult.cause());

@@ -83,11 +83,16 @@
             <artifactId>ignite-indexing</artifactId>
             <version>${ignite.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.ignite</groupId>
+            <artifactId>ignite-zookeeper</artifactId>
+            <version>${ignite.version}</version>
+        </dependency>
     </dependencies>
 
     <properties>
         <jdk.version>11</jdk.version>
-        <vertx.version>3.8.4</vertx.version>
+        <vertx.version>4.0.0-milestone3</vertx.version>
         <ignite.version>2.7.5</ignite.version>
     </properties>
 </project>
